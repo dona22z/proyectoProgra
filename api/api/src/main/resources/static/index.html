@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Menú Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            margin: 20px 0 10px;
+            color: #444;
+        }
+
+        a button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+        }
+
+        a button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            a button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Menú Principal</h1>
+
+    <h3>Ver todos los estudiantes</h3>
+    <a href="students.html"><button>Ver todos los estudiantes</button></a>
+
+    <h3>Ver estudiantes por ID</h3>
+    <a href="students/store.html"><button>Ver estudiantes por ID</button></a>
+
+    <h3>Agregar Estudiante</h3>
+    <a href="store.html"><button>Agregar Estudiante</button></a>
+
+    <h3>Editar estudiantes</h3>
+    <a href="students.html"><button>Editar estudiantes</button></a>
+
+    <h3>Editar estudiantes por Nota</h3>
+    <a href="update.html"><button>Editar estudiantes por Nota</button></a>
+
+    <h3>Eliminar estudiantes</h3>
+    <a href="students.html"><button>Eliminar estudiantes</button></a>
+</div>
+
+</body>
+</html>

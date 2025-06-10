@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Estudiantes</title>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #eaeaea;
+}
+
+button {
+    padding: 6px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.top-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Modal base */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal content */
+.modal-contenido {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 25px 30px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.modal-contenido h3 {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.modal-contenido label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-contenido input {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    text-align: center; /* Por si usas también botones centrados */
+}
+
+.modal-botones button {
+    flex: 1;
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+/* Modal Completo - específico */
+#modalCompleto .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    position: relative;
+}
+
+#closeModalCompleto {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+}
+
+
+    </style>
+</head>
+<body>
+
+<h2>Página Principal</h2>
+<div class="container">
+    <a href="index.html" class="top-btn"><button class="btn-secondary">Regresar a página principal</button></a>
+    <h1>Listado de Estudiantes</h1>
+
+    <div class="table-responsive">
+        <table id="estudiantes" class="display">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Idioma</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Se llena con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal para editar estudiante -->
+<div id="modal-editar" class="modal">
+    <div class="modal-contenido">
+        <h3>Editar Estudiante</h3>
+
+        <input type="hidden" id="editar-id">
+        <input type="email" id="editar-correo" placeholder="Correo electrónico">
+        <input type="text" id="editar-numero" placeholder="Número de teléfono (10 dígitos)">
+        <input type="text" id="editar-idioma" placeholder="Idioma (Español, Inglés, Francés)">
+        <div class="modal-botones">
+            <button onclick="guardarCambios(false)">Editar Parcial</button>
+            <button onclick="abrirModalCompleto()">Editar Completo</button>
+            <button class="btn-secondary" onclick="cerrarModal()">Cancelar</button>
+        </div>
+
+    </div>
+</div>
+
+<div id="modalCompleto" class="modal" style="display:none;">
+    <div class="modal-contenido">
+
+        <span id="closeModalCompleto" class="close">&times;</span>
+        <h2>Editar Estudiante (Completo)</h2>
+
+
+        <label>Nombre:<br>
+            <input type="text" id="inputFullName">
+        </label><br>
+        <label>Correo:<br>
+            <input type="email" id="inputFullEmail">
+        </label><br>
+        <label>Número:<br>
+            <input type="text" id="inputFullNumber">
+        </label><br>
+        <label>Idioma:<br>
+            <input type="text" id="inputFullLanguage">
+        </label><br><br>
+
+        <button id="btnGuardarCompleto">Guardar Cambios</button>
+    </div>
+</div>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- Script personalizado -->
+<script src="js/estudiantes.js"></script>
+
+</body>
+</html>
