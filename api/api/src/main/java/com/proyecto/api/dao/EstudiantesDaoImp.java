@@ -32,7 +32,16 @@ public class EstudiantesDaoImp implements EstudiantesDao{
 
     @Override
     public void agregar(Estudiante estudiante) {
-        entityManager.merge(estudiante);
+        String query = "FROM Estudiante WHERE correo = :correo";
+        List<Estudiante> existentes = entityManager.createQuery(query, Estudiante.class)
+                .setParameter("correo", estudiante.getCorreo())
+                .getResultList();
+
+        if (existentes.isEmpty()) {
+            entityManager.merge(estudiante);
+        } else {
+            throw new RuntimeException("El correo ya está registrado.");
+        }
     }
 
     @Override
