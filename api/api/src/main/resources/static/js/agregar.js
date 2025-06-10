@@ -23,8 +23,8 @@ async function agregarEstudiantes() {
         alert('Correo electrónico no válido.');
         return;
     }
-    if ((datos.idioma).toLowerCase != "español"|| "ingles"){
-        alert('Correo electrónico.');
+    if (!["español", "inglés", "francés"].includes(datos.idioma.toLowerCase())) {
+        alert('El idioma debe ser Español, Inglés o Francés.');
         return;
     }
 
